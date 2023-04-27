@@ -58,7 +58,7 @@ The fork separate the settings, interface and the main.ts. It also adds :
 - [i18next for translation](#i18next--translation-support)
 - [commit-and-tag-version](https://www.npmjs.com/package/commit-and-tag-version) to automatically commit and tag the version based on the commit message (it must respect the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format)
 - A GitHub workflows to automatically build and publish the plugin when a new tag is added. 
-- A JavaScript that allow you to export the builded plugin to your obsidian Vault. To do that you must add the path to your Vault (root) in the `.env.json` file. 
+- A JavaScript that allow you to export the built plugin to your obsidian Vault. To do that you must add the path to your Vault (root) in the `.env.json` file. 
 
 Moreover, the creating adds: 
 - Funding information in the manifest (cf [funding](https://github.com/obsidianmd/obsidian-sample-plugin#funding-url)
