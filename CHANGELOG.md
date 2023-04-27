@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.4](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.3...0.2.4) (2023-04-27)
+
+
+### Bug Fixes
+
+* **environment:** change environment variable name ([5b541e9](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/5b541e9bbe266b5d1397d1cf4f4031a8708ca60b))
+
 ## [0.2.3](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.2...0.2.3) (2023-04-27)
 
 
