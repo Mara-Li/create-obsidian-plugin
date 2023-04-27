@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.3](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.2...0.2.3) (2023-04-27)
+
+
+### Bug Fixes
+
+* @typescript/eslint not found ([ae2a7d3](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/ae2a7d31d823ce5a277e89a5e41e393dfa2357b2))
+
 ## [0.2.2](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/v0.2.1...v0.2.2) (2023-04-27)
 
 
