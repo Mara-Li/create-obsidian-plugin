@@ -1,0 +1,35 @@
+{
+  "name": "<%= plugin.id %>",
+  "version": "0.0.1",
+  "description": "<%= plugin.description %>",
+  "main": "lib/main.js",
+  "license": "<%= plugin.license %>",
+  "scripts": {
+    "build": "obsidian-plugin build<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts",
+    "dev": "obsidian-plugin dev<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts",
+    "lint:fix": "eslint --ext .ts src --fix",
+    "lint": "eslint --ext .ts src",
+    "lint:json": "eslint --ext .json . --fix",
+    "publish": "commit-and-tag-version",
+    "export" : "npm run build && node export.js"
+  },
+  "commit-and-tag-version": {
+    "t": ""
+  },
+  "devDependencies": {
+    "typescript": "^4.1.5",
+    "obsidian-plugin-cli": "^0.4.3",
+    "obsidian": "obsidianmd/obsidian-api",
+    "eslint": "^8.34.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-jsonc": "^2.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+  },
+  "dependencies" : {
+    "commit-and-tag-version": "^11.0.0",
+    "i18next": "^22.4.10"
+  }
+}
