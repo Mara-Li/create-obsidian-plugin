@@ -44,6 +44,8 @@ export interface PluginInfo {
 
 export async function prompt(): Promise<PluginInfo> {
   const defaultID = process.argv.slice(2).join("-").toLowerCase();
+  const defaultLicense = process.env.obsidian_plugin_license ? licenses[process.env.obsidian_plugin_license].name : "MIT";
+  console.log(defaultLicense);
   prompts.override({
     id: defaultID && validatePluginID(defaultID) ? defaultID : undefined,
   });
@@ -80,24 +82,26 @@ export async function prompt(): Promise<PluginInfo> {
         name: "author",
         message:
           "Enter your name or username you'd like the plugin to show as the author",
-        initial: process.env.npm_config_init_author_name,
+        initial: process.env.obsidian_plugin_author_name,
       },
       {
         type: "text",
         name: "vault_path",
         message: "Enter the path to your main vault, if you want to use the export command",
-        initial: process.env.npm_config_init_vault_path,
+        initial: process.env.obsidian_plugin_vault_path,
         format: (text) => text.replace(/([^\\])\\(?!\\)/g, '$1\\\\'),
       },
       {
         type: "text",
         name: "authorUrl",
         message: "Add your website or social media account (optional)",
+        initial: process.env.obsidian_plugin_author_url,
       },
       {
         type: "text",
         name: "fundingUrl",
         message: "Add a link to your funding page (optional)",
+        initial: process.env.obsidian_plugin_funding_url,
       },
       {
         type: "confirm",
@@ -115,7 +119,7 @@ export async function prompt(): Promise<PluginInfo> {
         message: `Choose a license ${reset(
           dim("(type to filter, ↑ or ↓ to navigate)")
         )}`,
-        initial: "MIT",
+        initial: defaultLicense,
         choices: Object.entries(licenses).map(([key, license]) => {
           return {
             value: key,

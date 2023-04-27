@@ -85,3 +85,12 @@ export const ressources = {
 export const translationLanguage = Object.keys(ressources).find(
 	i => i == moment.locale()) ? moment.locale() : "en";
 ```
+
+### Useful environment variable : 
+
+If you want to quickly create plugin without to rewrite each times the same information, you can set environment variable with the following name:
+- `obsidian_plugin_author_name` : Your author name
+- `obsidian_plugin_author_url` : Your author url (website, social media account, etc…)
+- `obsidian_plugin_vault_path` : The path to your obsidian vault (root)
+- `obsidian_plugin_funding_url` : Link to your funding page (Patreon, Paypal, Kofi, etc…)
+- `obsidian_plugin_license` : Your favorite license by their identifier (MIT, Apache-2.0, etc…). See [here](https://spdx.org/licenses/) for the complete list of identifier.

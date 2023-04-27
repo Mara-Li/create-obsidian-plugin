@@ -32,8 +32,6 @@
     "build": "tsc && shx cp -R src/templates lib/templates",
     "prestart": "yarn build",
     "start": "./bin/run",
-    "all": "yarn prebuild && yarn build && yarn start",
-    "echo": "node test.js",
     "release": "commit-and-tag-version"
   },
   "commit-and-tag-version": {

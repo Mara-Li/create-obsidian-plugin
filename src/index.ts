@@ -13,6 +13,7 @@ import dedent from "dedent";
 import { green, cyan, yellow, red } from "ansi-colors";
 import fs from "fs";
 import { execSync, spawnSync } from "child_process";
+import licenses from "spdx-license-list";
 
 const newline = () => console.log();
 
