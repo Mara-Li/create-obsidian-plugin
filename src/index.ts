@@ -154,7 +154,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		pluginPath(plugin, "LICENSE"),
 		(await import(`spdx-license-list/licenses/${plugin.license}`)).licenseText
 	);
-
+	
 	if (plugin.hasStylesheet) {
 		await writeTemplate("styles.css", { subPath: "src" });
 	}

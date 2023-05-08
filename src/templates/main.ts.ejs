@@ -1,11 +1,11 @@
 import {
   App,
-  Modal,
   Notice,
   Plugin,
 } from "obsidian";
 import {<%= plugin.className %>SettingsTab} from "./settings";
 import {<%= plugin.className %>Settings, DEFAULT_SETTINGS} from "./interface";
+import {<%= plugin.className %>Modals} from "./modals";
 import i18next from "i18next";
 import { resources, translationLanguage } from "./i18n/i18next";
 
@@ -39,7 +39,7 @@ export default class <%= plugin.className %> extends Plugin {
         let leaf = this.app.workspace.activeLeaf;
         if (leaf) {
           if (!checking) {
-            new SampleModal(this.app).open();
+            new <%= plugin.className %>Modals(this.app).open();
           }
           return true;
         }
@@ -75,19 +75,5 @@ export default class <%= plugin.className %> extends Plugin {
   }
 }
 
-class SampleModal extends Modal {
-  constructor(app: App) {
-    super(app);
-  }
 
-  onOpen() {
-    let { contentEl } = this;
-    contentEl.setText("Woah!");
-  }
-
-  onClose() {
-    let { contentEl } = this;
-    contentEl.empty();
-  }
-}
 
