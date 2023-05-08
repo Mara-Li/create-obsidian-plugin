@@ -3,155 +3,181 @@ import { renderFile } from "ejs";
 import path from "path";
 import { write, mkdir } from "./utils/fs";
 import { format } from "prettier";
+import {ESLint } from "eslint";
+
 import {
-  run,
-  runCommandText,
-  installCommandText,
-  publish,
+	run,
+	runCommandText,
+	installCommandText,
+	publish,
 } from "./utils/platform";
 import dedent from "dedent";
-import { green, cyan, yellow, red } from "ansi-colors";
+import { green, cyan, yellow, blue, bold } from "ansi-colors";
 import fs from "fs";
 import { execSync, spawnSync } from "child_process";
 
 const newline = () => console.log();
 
 const pluginPath = (plugin: PluginInfo, ...subPaths: string[]) =>
-  path.join(process.cwd(), plugin.id, ...subPaths);
+	path.join(process.cwd(), plugin.id, ...subPaths);
 
 interface WriteTemplateOptions {
-  subPath?: string;
-  templateData?: Record<string, unknown>;
+	subPath?: string;
+	templateData?: Record<string, unknown>;
+}
+
+function runLint(folderPath: string) {
+	const cwd = process.cwd();
+	const cmd = runCommandText("lint:fix");
+	//silent ignore errors
+	try {
+		execSync(`cd ${folderPath} && ${cmd} && cd ${cwd}`, { encoding: "utf-8" });
+	}
+	catch (error) {
+		//ignore
+	}
 }
 
 function getUserGithub(): string {
-  const defaultUserName = process.env.npm_config_init_author_name || "";
-  try {
-    const output = spawnSync('gh', ['auth', 'status'], { encoding: 'utf-8' });
-    const stderr = output.stderr;
-    //create a list of lines
-    const lines = stderr.split(/\r?\n/);
-    //get the line with the username
-    const line = lines.find(line => line.includes('✓ Logged in to github.com as'));
-    //get the username
-    const username = line?.split('✓ Logged in to github.com as')[1].trim();
-    if (username) {
-      return username.split(' ')[0];
-    }
-  } catch (error) {
-    return defaultUserName;
-  }
-  return defaultUserName;
+	const defaultUserName = process.env.npm_config_init_author_name || "";
+	try {
+		const output = spawnSync("gh", ["auth", "status"], { encoding: "utf-8" });
+		const stderr = output.stderr;
+		//create a list of lines
+		const lines = stderr.split(/\r?\n/);
+		//get the line with the username
+		const line = lines.find(line => line.includes("✓ Logged in to github.com as"));
+		//get the username
+		const username = line?.split("✓ Logged in to github.com as")[1].trim();
+		if (username) {
+			return username.split(" ")[0];
+		}
+	} catch (error) {
+		return defaultUserName;
+	}
+	return defaultUserName;
 }
 
 export function isGitHubCLIAvailable(): boolean {
-  try {
-    const output = execSync("gh --version", { encoding: "utf-8" });
-    const regex = /gh version ([0-9]+)/;
+	try {
+		const output = execSync("gh --version", { encoding: "utf-8" });
+		const regex = /gh version ([0-9]+)/;
 
-    const match = output.match(regex);
-    if (match && match[1]) {
-      return true;
-    }
-  } catch (error) {
-    return false;
-  }
-  return false;
+		const match = output.match(regex);
+		if (match && match[1]) {
+			return true;
+		}
+	} catch (error) {
+		return false;
+	}
+	return false;
 }
 
 const makeWriteTemplate = (plugin: PluginInfo) => async (
-  name: string,
-  { subPath = "", templateData = {} }: WriteTemplateOptions = {}
+	name: string,
+	{ subPath = "", templateData = {} }: WriteTemplateOptions = {}
 ) => {
-  let content: string;
-  if (path.extname(name) === ".yaml") {
-    content = await renderFile(
-      path.join(__dirname, "templates", `${name}.ejs`),
-      { plugin, ...templateData }
-    );
-  } else {
-    content = await renderFile(
-      path.join(__dirname, "templates", `${name}.ejs`),
-      { plugin, ...templateData },
-      { rmWhitespace: true }
-    );
-  }
-  const destinationDir = pluginPath(plugin, subPath);
+	let content: string;
+	if (path.extname(name) === ".yaml") {
+		content = await renderFile(
+			path.join(__dirname, "templates", `${name}.ejs`),
+			{ plugin, ...templateData }
+		);
+	} else {
+		content = await renderFile(
+			path.join(__dirname, "templates", `${name}.ejs`),
+			{ plugin, ...templateData },
+			{ rmWhitespace: true }
+		);
+	}
+	const destinationDir = pluginPath(plugin, subPath);
 
-  if (!fs.existsSync(destinationDir)) {
-    await mkdir(destinationDir, { recursive: true });
-  }
+	if (!fs.existsSync(destinationDir)) {
+		await mkdir(destinationDir, { recursive: true });
+	}
 
-  await write(
-    pluginPath(plugin, subPath, name),
-    path.extname(name) !== "" ? format(content, { filepath: name }) : content
-  );
+	await write(
+		pluginPath(plugin, subPath, name),
+		path.extname(name) !== "" ? format(content, { filepath: name, useTabs: true, semi: true }) : content
+	);
 };
 
 (async () => {
-  let plugin = await prompt();
-  const writeTemplate = makeWriteTemplate(plugin);
-  const githubUser = getUserGithub();
-  console.log(`Creating a new obsidian plugin at ${green(`./${plugin.id}`)}`);
+	const plugin = await prompt();
+	const writeTemplate = makeWriteTemplate(plugin);
+	const githubUser = getUserGithub();
+	console.log(`Creating a new obsidian plugin at ${green(`./${plugin.id}`)}`);
+	
+	const allTemplates: { name: string; subPath?: string }[] = [
+		{ name: "manifest.json" },
+		{ name: ".env.json" },
+		{ name: "package.json" },
+		{ name: ".eslintrc.js" },
+		{ name: "tsconfig.json" },
+		{ name: "types.d.ts" },
+		{ name: ".gitignore" },
+		{ name: "export.js" },
+		{ name: "README.md" },
+		{ name: "publish.yaml", subPath: ".github/workflows" },
+		{ name: "main.ts", subPath: "src" },
+		{ name: "settings.ts", subPath: "src" },
+		{ name: "interface.ts", subPath: "src" },
+		{ name: "i18next.d.ts", subPath: "src/@types" },
+		{ name: "i18next.ts", subPath: "src/i18n" },
+		{ name: "en.json", subPath: "src/i18n/locales" },
+		{ name: "fr.json", subPath: "src/i18n/locales" },
+	];
 
-  await writeTemplate("manifest.json");
-  await writeTemplate(".env.json")
-  await writeTemplate("package.json");
-  await writeTemplate("main.ts", { subPath: "src" });
-  await writeTemplate("settings.ts", { subPath: "src" });
-  await writeTemplate("interface.ts", { subPath: "src" });
-  await writeTemplate("i18next.d.ts", { subPath: "src/@types" });
-  await writeTemplate("en.json", { subPath: "src/i18n/locales" });
-  await writeTemplate("fr.json", { subPath: "src/i18n/locales" });
-  await writeTemplate("i18next.ts", { subPath: "src/i18n" });
-  await writeTemplate(".eslintrc.js");
-  await writeTemplate("tsconfig.json");
-  await writeTemplate("types.d.ts");
-  await writeTemplate(".gitignore");
-  await writeTemplate("export.js");
-  await writeTemplate("publish.yaml", { subPath: ".github/workflows" });
-  await writeTemplate("README.md", {
-    templateData: {
-      platform: {
-        build: runCommandText("build"),
-        dev: runCommandText("dev"),
-        export: runCommandText("export"),
-        install: installCommandText,
-        publish: publish,
-      },
-      github: {
-        user: githubUser,
-      }
-    },
-  });
+	for (const template of allTemplates) {
+		if (template.name === "README.md") {
+			await writeTemplate("README.md", {
+				templateData: {
+					platform: {
+						build: runCommandText("build"),
+						dev: runCommandText("dev"),
+						export: runCommandText("export"),
+						install: installCommandText,
+						publish: publish,
+					},
+					github: {
+						user: githubUser,
+					}
+				},
+			});
+		} else {
+			await writeTemplate(template.name, { subPath: template.subPath });
+		}
+	}
 
-  await write(
-    pluginPath(plugin, "LICENSE"),
-    (await import(`spdx-license-list/licenses/${plugin.license}`)).licenseText
-  );
 
-  if (plugin.hasStylesheet) {
-    await writeTemplate("styles.css", { subPath: "src" });
-  }
+	await write(
+		pluginPath(plugin, "LICENSE"),
+		(await import(`spdx-license-list/licenses/${plugin.license}`)).licenseText
+	);
 
-  console.log("Installing plugin dependencies, this may take a little while.");
+	if (plugin.hasStylesheet) {
+		await writeTemplate("styles.css", { subPath: "src" });
+	}
 
-  const installProcess = run("install", pluginPath(plugin));
-  installProcess.stdout?.pipe(process.stdout);
+	console.log(blue(bold("Installing plugin dependencies, this may take a little while.")));
 
-  await installProcess;
+	const installProcess = run("install", pluginPath(plugin));
+	installProcess.stdout?.pipe(process.stdout);
 
-  newline();
+	await installProcess;
 
-  //create a new git repo using the plugin id as the repo name
-  if (plugin.initRepo) {
-    execSync(`git init ${pluginPath}`);
-  }
-  if (plugin.createGitHubRepo) {
-    execSync(`gh repo create ${plugin.id} --public --source=${pluginPath} --remote=upstream`);
-  }
+	newline();
 
-  console.log(dedent`
+	//create a new git repo using the plugin id as the repo name
+	if (plugin.initRepo) {
+		execSync(`git init ${pluginPath(plugin)}`);
+	}
+	if (plugin.createGitHubRepo && plugin.initRepo) {
+		execSync(`gh repo create ${plugin.id} --public --source=${pluginPath(plugin)} --remote=upstream`);
+	}
+	runLint(pluginPath(plugin));
+
+	console.log(dedent`
     To get started developing on your plugin run
 
       ${cyan(`cd ${plugin.id}`)}
@@ -160,5 +186,5 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
     ${yellow("Please check your LICENSE file to see if any updates are needed")}
   `);
 
-  newline();
+	newline();
 })();
