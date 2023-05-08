@@ -3,7 +3,6 @@ import { renderFile } from "ejs";
 import path from "path";
 import { write, mkdir } from "./utils/fs";
 import { format } from "prettier";
-import {ESLint } from "eslint";
 
 import {
 	run,
