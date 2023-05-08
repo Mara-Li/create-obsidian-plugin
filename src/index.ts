@@ -97,7 +97,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 
 	await write(
 		pluginPath(plugin, subPath, name),
-		path.extname(name) !== "" ? format(content, { filepath: name, useTabs: true, semi: true }) : content
+		path.extname(name) !== "" ? format(content, { filepath: name, useTabs: true, semi: true, endOfLine: "lf" }) : content
 	);
 };
 
@@ -110,6 +110,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 	const allTemplates: { name: string; subPath?: string }[] = [
 		{ name: "manifest.json" },
 		{ name: ".env.json" },
+		{ name: ".eslintignore"},
 		{ name: "package.json" },
 		{ name: ".eslintrc.js" },
 		{ name: "tsconfig.json" },
@@ -176,7 +177,6 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 	if (plugin.createGitHubRepo && plugin.initRepo) {
 		execSync(`gh repo create ${plugin.id} --public --source=${pluginPath(plugin)} --remote=upstream`);
 	}
-	runLint(pluginPath(plugin));
 
 	console.log(dedent`
     To get started developing on your plugin run
