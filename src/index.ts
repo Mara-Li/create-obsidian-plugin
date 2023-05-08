@@ -159,7 +159,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			const devCmdWithVault = `${devCmd}${devVaultPath}`;
 			let exportCmd = "";
 			if (plugin.vault_path.trim().length > 0) {
-				exportCmd = `"export": "${buildCmd} --output-dir ${JSON.stringify(path.join(plugin.vault_path, ".obsidian", "plugin", plugin.id))}",`;
+				exportCmd = `"export": "${buildCmd} --output-dir ${JSON.stringify(path.join(plugin.vault_path, ".obsidian", "plugin", plugin.id)).replace(/"/g, "")}",`;
 			}
 			await writeTemplate("package.json", {
 				templateData: {
