@@ -127,6 +127,10 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		{ name: "en.json", subPath: "src/i18n/locales" },
 		{ name: "fr.json", subPath: "src/i18n/locales" },
 	];
+	
+	if (plugin.hasStylesheet) {
+		allTemplates.push({ name: "styles.css", subPath: "src" });
+	}
 
 	for (const template of allTemplates) {
 		if (template.name === "README.md") {
@@ -155,9 +159,6 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		(await import(`spdx-license-list/licenses/${plugin.license}`)).licenseText
 	);
 	
-	if (plugin.hasStylesheet) {
-		await writeTemplate("styles.css", { subPath: "src" });
-	}
 
 	console.log(blue(bold("Installing plugin dependencies, this may take a little while.")));
 
