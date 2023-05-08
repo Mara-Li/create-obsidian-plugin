@@ -5,13 +5,12 @@
   "main": "lib/main.js",
   "license": "<%= plugin.license %>",
   "scripts": {
-	"build": "obsidian-plugin build<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts",
-	"dev": "obsidian-plugin dev<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts<%= plugin.dev_vault.trim().length > 0 ? ` -v "${plugin.dev_vault.trim()}"` : "" %>",
+	"build": "<%= scripts.build %>",
+	"dev": "<%= scripts.dev %>",
 	"lint:fix": "eslint --ext .ts,.js,.json src --fix",
 	"lint": "eslint --ext .ts src",
-	"lint:json": "eslint --ext .json . --fix",
 	"publish": "commit-and-tag-version",
-	"export" : "npm run build && node export.js"
+	<%- scripts.export %>
   },
   "commit-and-tag-version": {
 	"t": ""
@@ -26,8 +25,12 @@
 	"eslint-plugin-jsonc": "^2.6.0",
 	"eslint-plugin-node": "^11.1.0",
 	"eslint-plugin-promise": "^6.1.1",
-	"obsidian": "obsidianmd/obsidian-api",
-	"obsidian-plugin-cli": "^0.4.3",
+	"obsidian": "latest",
+	"builtin-modules": "^3.3.0",
+	"@types/node": "^16.11.16",
+	"esbuild" : "0.17.3",
+	"tslib" : "2.4.0",
+	"obsidian-plugin-cli": "latest",
 	"typescript": "^5.0.4"
   },
   "dependencies": {

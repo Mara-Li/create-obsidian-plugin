@@ -89,7 +89,6 @@ export async function prompt(): Promise<PluginInfo> {
 				name: "vault_path",
 				message: "Enter the path to your main vault, if you want to use the export command",
 				initial: process.env.obsidian_plugin_vault_path,
-				format: (text) => text.replace(/([^\\])\\(?!\\)/g, "$1\\\\"),
 			},
 			{
 				type: "text",
@@ -120,6 +119,16 @@ export async function prompt(): Promise<PluginInfo> {
 				message: "Does your plugin include styles?",
 			},
 			{
+				type: "confirm",
+				name: "initRepo",
+				message: "Initialize a git repository?",
+			},
+			{
+				type: prev => isGitHubCLIAvailable() && prev ? "confirm" : null,
+				name: "createGitHubRepo",
+				message: "Create a GitHub repository? (requires GitHub CLI)",
+			},
+			{
 				type: "autocomplete",
 				name: "license",
 				message: `Choose a license ${reset(
@@ -134,16 +143,6 @@ export async function prompt(): Promise<PluginInfo> {
 					};
 				}),
 			},
-			{
-				type: "confirm",
-				name: "initRepo",
-				message: "Initialize a git repository?",
-			},
-			{
-				type: prev => isGitHubCLIAvailable() && prev ? "confirm" : null,
-				name: "createGitHubRepo",
-				message: "Create a GitHub repository? (requires GitHub CLI)",
-			}
 		],
 		{
 			onCancel() {
@@ -151,7 +150,6 @@ export async function prompt(): Promise<PluginInfo> {
 			},
 		}
 	);
-
 	return {
 		...answers,
 		className: answers.name.split(" ").filter(empty).map(capitalize).join(""),

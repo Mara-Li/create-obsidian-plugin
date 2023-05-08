@@ -109,14 +109,13 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 	
 	const allTemplates: { name: string; subPath?: string }[] = [
 		{ name: "manifest.json" },
-		{ name: ".env.json" },
+		{ name: ".hotreload"},
 		{ name: ".eslintignore"},
 		{ name: "package.json" },
 		{ name: ".eslintrc.js" },
 		{ name: "tsconfig.json" },
 		{ name: "types.d.ts" },
 		{ name: ".gitignore" },
-		{ name: "export.js" },
 		{ name: "README.md" },
 		{ name: "publish.yaml", subPath: ".github/workflows" },
 		{ name: "main.ts", subPath: "src" },
@@ -146,6 +145,28 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 					},
 					github: {
 						user: githubUser,
+					}
+				},
+			});
+		} else if (template.name === "package.json") {
+			const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
+			const buildCmd = `obsidian-plugin build${addStyle}`;
+			const devCmd = `obsidian-plugin dev${addStyle}`;
+			let devVaultPath = "";
+			if (plugin.dev_vault.trim().length > 0) {
+				devVaultPath = ` -v ${JSON.stringify(plugin.dev_vault).replace(/"/g, "")}`;
+			}
+			const devCmdWithVault = `${devCmd}${devVaultPath}`;
+			let exportCmd = "";
+			if (plugin.vault_path.trim().length > 0) {
+				exportCmd = `"export": "${buildCmd} --output-dir ${JSON.stringify(path.join(plugin.vault_path, ".obsidian", "plugin", plugin.id))}",`;
+			}
+			await writeTemplate("package.json", {
+				templateData: {
+					scripts: {
+						build: buildCmd,
+						dev: devCmdWithVault,
+						export: exportCmd,
 					}
 				},
 			});
