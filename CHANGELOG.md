@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/v0.3.3...v1.0.0) (2023-05-08)
+
+
+### Features
+
+* add dev vault ([4d10c06](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/4d10c06998b3dcdd6415a9b38e3cdd31d32beb4f))
+* add eslintignore ([0fbd470](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/0fbd470ecb8079e518a196027f2cd89f4879e6d2))
+* use obsidian-plugin-cli for exporting files ([998ee90](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/998ee9096092a0e25d7d3dcc29b7274b05226812))
+
+
+### Bug Fixes
+
+* **package.json:** broken export path ([7eb38d3](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/7eb38d3039eb662d0c2bd5d1dbd8b3dae7db07ed))
+* remove eslint and use prettier with better opts ([cf3c00a](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/cf3c00a2a5dd13a1b6ff349f13ac24f0bfc66aaa))
+* tsconfig compile ([75f7a94](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/75f7a94e0970369cc410bd104bb236844b536d41))
+
 ## [0.3.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.5...0.3.0) (2023-05-08)
 
 ## [0.2.5](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.4...0.2.5) (2023-05-08)
