@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.5](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.4...0.2.5) (2023-05-08)
+
+
+### Features
+
+* optimize templatesAll object & loop ([5efbb3e](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/5efbb3e15c3566f6814e6fac5abd5960329434c0))
+* run eslint after creating plugin ([04622f4](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/04622f4d6caf8c8297e48d553f458ca1589ab439))
+* separate modals ([7f91812](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/7f91812860402e8da724b37b4d8c1e40f8d54f7d))
+* **template:** separate modals ([39ba2da](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/39ba2da9a29549c768e2fa51ab284d156eb63d90))
+
+
+### Bug Fixes
+
+* **template:** "plugin.id" not found ([a2f4705](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/a2f4705337ed1d55341d2fa2548b620d89c8e8d7))
+
 ## [0.2.4](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/0.2.3...0.2.4) (2023-04-27)
 
 
