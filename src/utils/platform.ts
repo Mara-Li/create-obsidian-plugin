@@ -1,5 +1,5 @@
 import os from "os";
-import execa from "execa";
+import { execa } from "execa";
 
 export type Platform = typeof platforms[number];
 const platforms = ["npm", "yarn/1", "yarn/2", "pnpm"] as const;
