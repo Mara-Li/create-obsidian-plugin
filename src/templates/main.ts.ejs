@@ -1,7 +1,4 @@
-import {
-  Notice,
-  Plugin,
-} from "obsidian";
+import {Plugin} from "obsidian";
 import {<%= plugin.className %>SettingsTab} from "./settings";
 import {<%= plugin.className %>Settings, DEFAULT_SETTINGS} from "./interface";
 import {<%= plugin.className %>Modals} from "./modals";
@@ -21,48 +18,20 @@ export default class <%= plugin.className %> extends Plugin {
 			returnNull: false,
 		});
     await this.loadSettings();
-
-    this.addRibbonIcon("dice", "Sample Plugin", () => {
-      new Notice("This is a notice!");
-    });
-
-    this.addStatusBarItem().setText("Status Bar Text");
+    this.addSettingTab(new <%= plugin.className %>SettingsTab(this.app, this));
 
     this.addCommand({
-      id: "open-sample-modal",
-      name: "Open Sample Modal",
-      // callback: () => {
-      // 	console.log('Simple Callback');
-      // },
-      checkCallback: (checking: boolean) => {
-        let leaf = this.app.workspace.activeLeaf;
-        if (leaf) {
-          if (!checking) {
-            new <%= plugin.className %>Modals(this.app).open();
-          }
-          return true;
-        }
-        return false;
+      id: "open-<%= plugin.className %>-modal",
+      name: "Open <%= plugin.className %> Modal",
+      callback: () => {
+        new <%= plugin.className %>Modals(this.app, this).open();
       },
     });
 
-    this.addSettingTab(new <%= plugin.className %>SettingsTab(this.app, this));
-
-    this.registerCodeMirror((cm: CodeMirror.Editor) => {
-      console.log("codemirror", cm);
-    });
-
-    this.registerDomEvent(document, "click", (evt: MouseEvent) => {
-      console.log("click", evt);
-    });
-
-    this.registerInterval(
-      window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000)
-    );
   }
 
   onunload() {
-    console.log("unloading plugin");
+    console.log(`<%= plugin.className %> v.${this.manifest.version} (lang: ${translationLanguage}) unloaded.`);
   }
 
   async loadSettings() {
