@@ -86,7 +86,7 @@ export const translationLanguage = Object.keys(ressources).find(
 
 ### Useful environments variables : 
 
-If you want to quickly create plugin without to rewrite each time the same information, you can set environment variable with the following name:
+If you want to quickly create a plugin without rewrite each time the same information, you can set environment variable with the following name:
 - `obsidian_plugin_author_name` : Your author name
 - `obsidian_plugin_author_url` : Your author url (website, social media account, etc…)
 - `obsidian_plugin_vault_path` : The path to your obsidian vault (root)
