@@ -34,6 +34,7 @@ export interface PluginInfo {
   author: string;
   authorUrl: string;
   vault_path: string;
+  dev_vault: string;
   fundingUrl: string;
   isDesktopOnly: boolean;
   hasStylesheet: boolean;
@@ -89,6 +90,12 @@ export async function prompt(): Promise<PluginInfo> {
 				message: "Enter the path to your main vault, if you want to use the export command",
 				initial: process.env.obsidian_plugin_vault_path,
 				format: (text) => text.replace(/([^\\])\\(?!\\)/g, "$1\\\\"),
+			},
+			{
+				type: "text",
+				name: "dev_vault",
+				message: "Enter the path to your development vault",
+				initial: process.env.obsidian_plugin_dev_vault			
 			},
 			{
 				type: "text",

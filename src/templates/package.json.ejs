@@ -6,8 +6,8 @@
   "license": "<%= plugin.license %>",
   "scripts": {
 	"build": "obsidian-plugin build<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts",
-	"dev": "obsidian-plugin dev<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts",
-	"lint:fix": "eslint --ext .ts,.js,.json . --fix --quiet",
+	"dev": "obsidian-plugin dev<%= plugin.hasStylesheet && " --with-stylesheet src/styles.css" || "" %> src/main.ts<%= plugin.dev_vault.trim().length > 0 ? ` -v "${plugin.dev_vault.trim()}"` : "" %>",
+	"lint:fix": "eslint --ext .ts,.js,.json src --fix",
 	"lint": "eslint --ext .ts src",
 	"lint:json": "eslint --ext .json . --fix",
 	"publish": "commit-and-tag-version",
