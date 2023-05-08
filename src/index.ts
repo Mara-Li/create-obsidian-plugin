@@ -122,6 +122,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		{ name: "main.ts", subPath: "src" },
 		{ name: "settings.ts", subPath: "src" },
 		{ name: "interface.ts", subPath: "src" },
+		{ name: "modals.ts", subPath: "src" },
 		{ name: "i18next.d.ts", subPath: "src/@types" },
 		{ name: "i18next.ts", subPath: "src/i18n" },
 		{ name: "en.json", subPath: "src/i18n/locales" },
