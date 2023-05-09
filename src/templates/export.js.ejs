@@ -4,10 +4,10 @@ const path = require("path");
 const fs = require("fs");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const c = require("ansi-colors");
-
-const envFile = path.join(__dirname, ".env.json");
-const env = JSON.parse(fs.readFileSync(envFile, "utf8"));
-const VAULT = env['VAULT'];
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const dotenv = require("dotenv");
+const env = dotenv.config();
+const VAULT = env.parsed.VAULT;
 if (!VAULT || VAULT.trim().length === 0) {
 	console.error("Please set VAULT in .env.json");
 	process.exit(1);
