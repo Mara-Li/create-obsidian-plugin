@@ -97,7 +97,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 
 	await write(
 		pluginPath(plugin, subPath, name),
-		path.extname(name) !== "" ? format(content, { filepath: name, useTabs: true, semi: true, endOfLine: "lf" }) : content
+		path.extname(name) !== "" ? format(content, { filepath: name, useTabs: true, semi: true, endOfLine: "crlf" }) : content
 	);
 };
 
@@ -117,6 +117,8 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		{ name: "types.d.ts" },
 		{ name: ".gitignore" },
 		{ name: "README.md" },
+		{ name: ".env.json"},
+		{ name: "export.js"},
 		{ name: "publish.yaml", subPath: ".github/workflows" },
 		{ name: "main.ts", subPath: "src" },
 		{ name: "settings.ts", subPath: "src" },
@@ -159,7 +161,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			const devCmdWithVault = `${devCmd}${devVaultPath}`;
 			let exportCmd = "";
 			if (plugin.vault_path.trim().length > 0) {
-				exportCmd = `"export": "${buildCmd} --output-dir ${JSON.stringify(path.join(plugin.vault_path, ".obsidian", "plugin", plugin.id)).replace(/"/g, "")}",`;
+				exportCmd = "\"preexport\" : \"npm run build\",\n\t\t\"export\" : \"node export.js\"";
 			}
 			await writeTemplate("package.json", {
 				templateData: {
