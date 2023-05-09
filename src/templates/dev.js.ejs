@@ -8,7 +8,7 @@ let vaultDev = process.env.VAULT_DEV || "";
 let msg = "";
 if (vaultDev.trim().length > 0) {
 	vaultDev = `-v ${vaultDev}`;
-	msg = `-v ${c.underline(vaultDev)}`;
+	msg = `-v ${c.underline(process.env.VAULT_DEV)}`;
 }
 const hasStyleSheet = "<%- plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : '' %>";
 const command = `obsidian-plugin dev${hasStyleSheet} src/main.ts ${vaultDev}`;
