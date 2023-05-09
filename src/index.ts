@@ -152,13 +152,8 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			});
 		} else if (template.name === "package.json") {
 			const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
-			const buildCmd = `obsidian-plugin build${addStyle}`;
-			const devCmd = `obsidian-plugin dev${addStyle}`;
-			let devVaultPath = "";
-			if (plugin.dev_vault.trim().length > 0) {
-				devVaultPath = ` -v ${JSON.stringify(plugin.dev_vault).replace(/"/g, "")}`;
-			}
-			const devCmdWithVault = `${devCmd}${devVaultPath}`;
+			const buildCmd = `obsidian-plugin build${addStyle} src/main.ts`;
+			const devCmd = `obsidian-plugin dev${addStyle} src/main.ts`;
 			let exportCmd = "";
 			if (plugin.vault_path.trim().length > 0) {
 				exportCmd = "\"preexport\" : \"npm run build\",\n\t\t\"export\" : \"node export.js\"";
@@ -167,7 +162,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 				templateData: {
 					scripts: {
 						build: buildCmd,
-						dev: devCmdWithVault,
+						dev: devCmd,
 						export: exportCmd,
 					}
 				},
