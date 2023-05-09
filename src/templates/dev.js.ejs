@@ -10,7 +10,7 @@ if (vaultDev.trim().length > 0) {
 	vaultDev = `-v ${vaultDev}`;
 	msg = `-v ${c.underline(vaultDev)}`;
 }
-const hasStyleSheet = <%- plugin.hasStyleSheet ? " --with-stylesheet src/styles.css" : '""' %>;
+const hasStyleSheet = "<%- plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : '' %>";
 const command = `obsidian-plugin dev${hasStyleSheet} src/main.ts ${vaultDev}`;
 console.log(c.blue.italic(`${c.bold.red(">")} obsidian-plugin dev${c.yellow.underline(hasStyleSheet)} src/main.ts ${msg}`));
 execSync(command, { stdio: "inherit" });

@@ -56,7 +56,8 @@ The fork separates the settings, interfaces and the main.ts. It also adds :
 - [i18next for translation](#i18next--translation-support)
 - [commit-and-tag-version](https://www.npmjs.com/package/commit-and-tag-version) to automatically commit and tag the version based on the commit message (it must respect the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format)
 - A GitHub workflows to automatically build and publish the plugin when a new tag is added. 
-- A JavaScript that allows you to export the built plugin to your obsidian Vault. To do that you must add the path to your Vault (root) in the `.env.json` file. 
+- A JavaScript that allows you to export the built plugin to your obsidian Vault. To do that you must add the path to your Vault (root) in the `.env` file.
+- A better dev workflow using `.env` file and `dev.js` file. 
 
 Moreover, the creating adds: 
 - Funding information in the manifest (cf [funding](https://github.com/obsidianmd/obsidian-sample-plugin#funding-url)
@@ -74,13 +75,13 @@ import * as en from "./locales/en.json";
 import * as fr from "./locales/fr.json";
 import * as newLang from "./locales/newLang.json";
 
-export const ressources = {
+export const resources = {
 	en: { translation: en },
 	fr: { translation: fr },
 	newLang: { translation: newLang },
 } as const;
 
-export const translationLanguage = Object.keys(ressources).find(
+export const translationLanguage = Object.keys(resources).find(
 	i => i == moment.locale()) ? moment.locale() : "en";
 ```
 
@@ -90,5 +91,6 @@ If you want to quickly create a plugin without rewrite each time the same inform
 - `obsidian_plugin_author_name` : Your author name
 - `obsidian_plugin_author_url` : Your author url (website, social media account, etc…)
 - `obsidian_plugin_vault_path` : The path to your obsidian vault (root)
+- `obsidian_plugin_dev_vault` : The path to your obsidian vault (root) for development
 - `obsidian_plugin_funding_url` : Link to your funding page (Patreon, Paypal, Kofi, etc…)
 - `obsidian_plugin_license` : Your favorite license by their identifier (MIT, Apache-2.0, etc…). See [here](https://spdx.org/licenses/) for the complete list of identifier.

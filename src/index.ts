@@ -153,8 +153,6 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			});
 		} else if (template.name === "package.json") {
 			const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
-			const buildCmd = `obsidian-plugin build${addStyle} src/main.ts`;
-			const devCmd = `obsidian-plugin dev${addStyle} src/main.ts`;
 			let exportCmd = "";
 			if (plugin.vault_path.trim().length > 0) {
 				exportCmd = "\"preexport\" : \"npm run build\",\n\t\t\"export\" : \"node export.js\"";
@@ -162,8 +160,8 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			await writeTemplate("package.json", {
 				templateData: {
 					scripts: {
-						build: buildCmd,
-						dev: devCmd,
+						build:  `obsidian-plugin build${addStyle} src/main.ts`,
+						dev: "node dev.js",
 						export: exportCmd,
 					}
 				},

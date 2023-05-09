@@ -22,6 +22,7 @@ To make changes to this plugin, first ensure you have the dependencies installed
 ```
 <%= platform.install %>
 ```
+
 To start building the plugin with what mode enabled run the following command:
 ```
 <%= platform.dev %>
@@ -36,17 +37,18 @@ To start a release build run the following command:
 <%= platform.build %>
 ```
 
+> **info**  
+> You can use the `.env` file with adding the key `VAULT_DEV` to specify the path to your Obsidian (development) vault. This will allow you to test your plugin without specify each times the path to the vault.
+
+
 ### 📤 Export
 
-You can use the `<%= platform.export %>` command to export your plugin to your Obsidian Main Vault. To do that, you need the `.env.json` file with the following content:
+You can use the `<%= platform.export %>` command to export your plugin to your Obsidian Main Vault. To do that, you need the `.env` file with the following content:
 
 ```json
-{
-  "VAULT": "path/to/your/obsidian/vault"
-}
+VAULT="path/to/your/obsidian/vault"
+VAULT_DEV="path/to/your/dev/vault"
 ```
-> **Warning** 
-> You need to duplicate the `\` on Windows.
 
 ### 🎼 Languages
 
