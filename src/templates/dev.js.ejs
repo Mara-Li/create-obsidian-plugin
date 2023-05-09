@@ -10,7 +10,7 @@ if (vaultDev.trim().length > 0) {
 	vaultDev = `-v ${vaultDev}`;
 	msg = `-v ${c.underline(process.env.VAULT_DEV)}`;
 }
-const hasStyleSheet = "<%- plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : '' %>";
-const command = `obsidian-plugin dev${hasStyleSheet} src/main.ts ${vaultDev}`;
-console.log(c.blue.italic(`${c.bold.red(">")} obsidian-plugin dev${c.yellow.underline(hasStyleSheet)} src/main.ts ${msg}`));
+const hasStyleSheet = "<%- plugin.hasStylesheet ? " --with-stylesheet src/styles.css " : '' %>";
+const command = `obsidian-plugin dev src/main.ts${hasStyleSheet}${vaultDev}`;
+console.log(c.blue.italic(`${c.bold.red(">")} obsidian-plugin dev src/main.ts${c.yellow.underline(hasStyleSheet)}${msg}`));
 execSync(command, { stdio: "inherit" });

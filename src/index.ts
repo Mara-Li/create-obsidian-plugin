@@ -160,7 +160,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			await writeTemplate("package.json", {
 				templateData: {
 					scripts: {
-						build:  `obsidian-plugin build${addStyle} src/main.ts`,
+						build:  `obsidian-plugin build src/main.ts${addStyle}`,
 						dev: "node dev.js",
 						export: exportCmd,
 					}
