@@ -32,10 +32,10 @@
     "build": "tsc && shx cp -R src/templates lib/templates",
     "prestart": "yarn build",
     "start": "./bin/run",
-    "prerelease": "yarn build",
-    "release": "commit-and-tag-version",
-    "preupdate": "yarn release",
-    "update": "npm publish"
+    "prebump": "yarn build",
+    "bump": "commit-and-tag-version",
+    "prerelease": "yarn release",
+    "release": "npm publish"
   },
   "commit-and-tag-version": {
     "t": ""
