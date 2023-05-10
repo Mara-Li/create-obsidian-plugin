@@ -1,6 +1,6 @@
 {
   "name": "@lisandra-dev/create-obsidian-plugin",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "An unofficial tool for easily creating an obsidian plugin, with i18n support, workflows...",
   "keywords": [
     "create",
@@ -32,7 +32,10 @@
     "build": "tsc && shx cp -R src/templates lib/templates",
     "prestart": "yarn build",
     "start": "./bin/run",
-    "release": "commit-and-tag-version"
+    "prerelease": "yarn build",
+    "release": "commit-and-tag-version",
+    "preupdate": "yarn release",
+    "update": "npm publish"
   },
   "commit-and-tag-version": {
     "t": ""
