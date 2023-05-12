@@ -121,6 +121,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		{ name: "export.js"},
 		{ name: "dev.js"},
 		{ name: "publish.yaml", subPath: ".github/workflows" },
+		{ name: "bump.yaml", subPath: ".github/workflows" },
 		{ name: "main.ts", subPath: "src" },
 		{ name: "settings.ts", subPath: "src" },
 		{ name: "interface.ts", subPath: "src" },
