@@ -35,7 +35,8 @@
     "prebump": "yarn build",
     "bump": "commit-and-tag-version",
     "prerelease": "yarn bump",
-    "release": "npm publish"
+    "release": "npm publish",
+    "postrelease": "git push --follow-tags origin main"
   },
   "commit-and-tag-version": {
     "t": ""
