@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.1.7...1.2.0) (2023-05-12)
+
+
+### Features
+
+* **ci:** Add manual bump version & allow manual release with already exists version ([7326337](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/73263376b381566b8eb8ac381d753000ace91c4b))
+
+
+### Bug Fixes
+
+* this scripts made me crazy ([93dc018](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/93dc018a06697bc8393cdbef0e6700b8806f2cb3))
+* this scripts made me crazy ([676b781](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/676b781c45a6a19dddd86edf744c06d4a95ab79f))
+
 ## [1.1.7](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/v1.1.5...v1.1.7) (2023-05-10)
 
 
