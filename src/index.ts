@@ -3,6 +3,8 @@ import { renderFile } from "ejs";
 import path from "path";
 import { write, mkdir } from "./utils/fs";
 import { format } from "prettier";
+import simpleGit, {BranchSummary} from "simple-git";
+
 
 import {
 	run,
@@ -25,16 +27,16 @@ interface WriteTemplateOptions {
 	templateData?: Record<string, unknown>;
 }
 
-function runLint(folderPath: string) {
-	const cwd = process.cwd();
-	const cmd = runCommandText("lint:fix");
-	//silent ignore errors
-	try {
-		execSync(`cd ${folderPath} && ${cmd} && cd ${cwd}`, { encoding: "utf-8" });
-	}
-	catch (error) {
-		//ignore
-	}
+function getDefaultBranch() {
+	const git = simpleGit();
+	git.branchLocal((err: any, branch: BranchSummary) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		return branch.current;
+	});
+	return "";
 }
 
 function getUserGithub(): string {
@@ -155,8 +157,15 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		} else if (template.name === "package.json") {
 			const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
 			let exportCmd = "";
+			let bump = "";
+			let upgrade = "";
 			if (plugin.vault_path.trim().length > 0) {
 				exportCmd = "\"preexport\" : \"npm run build\",\n\t\t\"export\" : \"node export.js\"";
+				// eslint-disable-next-line quotes
+				upgrade = `"preupgrade" : "nmp run bump",\n\t\t"upgrade" : "npm run export"`;
+			}
+			if (plugin.initRepo && plugin.createGitHubRepo) {
+				bump = `"postbump" : "git push --follow-tags origin ${getDefaultBranch()}"`;
 			}
 			await writeTemplate("package.json", {
 				templateData: {
@@ -164,6 +173,8 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 						build:  `obsidian-plugin build src/main.ts${addStyle}`,
 						dev: "node dev.js",
 						export: exportCmd,
+						bump: bump,
+						upgrade: upgrade,
 					}
 				},
 			});
