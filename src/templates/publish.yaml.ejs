@@ -22,11 +22,10 @@ jobs:
         run: |
           npm install
           npm run build  -- --output-dir ${{ env.PLUGIN_NAME }}
-      - name: Set version ENV
+      - name: Get version
         id: tags
         run: |
-          git fetch --tags
-          echo "VERSION=$(git tag --sort version:refname | tail -n 1)" >> $GITHUB_ENV
+          echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: Check tags output
         run: |
           echo ${{ env. VERSION }}
@@ -38,9 +37,14 @@ jobs:
           ls >> $GITHUB_STEP_SUMMARY
       - name: Delete release if workflow dispatch
         if: github.event_name == 'workflow_dispatch'
-        run: gh release delete ${{ env.VERSION }} -y
+        run: |
+          tag_name=${{ env.VERSION }}
+          release_info=$(gh release view $tag_name -R ${{ github.repository }} --json id --jq '.id')
+          if [[ -n "$release_info" ]]; then
+            gh release delete $release_id -R ${{ github.repository }} --yes
+          fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
       - name: Create changelog
         run: |
           npx rexreplace "^.*?#+\s\[.*?\n.*?(?=\s*#+\s\[)" "_" -s -M -G -m -o "CHANGELOG.md" > CHANGELOG-LATEST.md
