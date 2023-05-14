@@ -9,8 +9,10 @@
 	"dev": "<%= scripts.dev %>",
 	"lint:fix": "eslint --ext .ts,.js,.json src --fix",
 	"lint": "eslint --ext .ts src",
-	"publish": "commit-and-tag-version",
-	<%- scripts.export %>
+	"bump": "commit-and-tag-version",
+	<%- scripts.bump %>,
+	<%- scripts.export %>,
+	<%- scripts.upgrade %>
   },
   "commit-and-tag-version": {
 	"t": ""
