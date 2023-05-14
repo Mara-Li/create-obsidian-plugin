@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.2.0...1.3.0) (2023-05-14)
+
+
+### Features
+
+* add post-bump, upgrade & preupgrade scripts ([cac1b51](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/cac1b511762a094b1641162f0a35abc7475ed2c0))
+* add postbump, upgrade & preupgrade scripts ([a2cbc74](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/a2cbc749900a67059b21fc677012956c78319fc1))
+* run dev in production vault ([d856406](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/d856406dd1afcd5aa657e274f37ceb16f96af4a0))
+
+
+### Bug Fixes
+
+* **ci:** prevent crash when release not exist ([0765434](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/07654343a24966b0cf4d68206b1bfd83d7fcc6f2))
+* rename in github action bump action ([9774afc](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/9774afc34dd308b86e87efc24e16a83be08f1c88))
+* version tags not found & release not found ([9082526](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/90825265608b662586de6beb6253056e29c6b252))
+
 ## [1.2.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.1.7...1.2.0) (2023-05-12)
 
 
