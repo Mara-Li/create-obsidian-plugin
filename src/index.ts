@@ -110,6 +110,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 	console.log(`Creating a new obsidian plugin at ${green(`./${plugin.id}`)}`);
 	
 	const allTemplates: { name: string; subPath?: string }[] = [
+		{ name: "commit-and-tag-version.js"},
 		{ name: "manifest.json" },
 		{ name: ".hotreload"},
 		{ name: ".eslintignore"},
