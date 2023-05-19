@@ -30,13 +30,13 @@
   "scripts": {
     "prebuild": "shx rm -rf lib",
     "build": "tsc && shx cp -R src/templates lib/templates",
-    "prestart": "yarn build",
+    "prestart": "npm run build",
     "start": "./bin/run",
-    "prebump": "yarn build",
+    "prebump": "npm run build",
     "bump": "commit-and-tag-version",
-    "prerelease": "yarn bump",
+    "prerelease": "npm run bump",
     "release": "npm publish",
-    "postrelease": "git push --follow-tags origin main"
+    "postrelease": "git push --follow-tags origin master"
   },
   "commit-and-tag-version": {
     "t": ""
