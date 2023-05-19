@@ -75,5 +75,6 @@
     "prompts": "^2.4.0",
     "simple-git": "^3.18.0",
     "spdx-license-list": "^6.4.0"
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }
