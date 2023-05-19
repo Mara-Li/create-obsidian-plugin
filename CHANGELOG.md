@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.4.1...1.5.0) (2023-05-19)
+
+
+### Features
+
+* export in beta option ([7f8ba2f](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/7f8ba2ff91982e9e817413ee056b0919fcfd2c70))
+
 ## [1.4.1](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.4.0...1.4.1) (2023-05-19)
 
 
