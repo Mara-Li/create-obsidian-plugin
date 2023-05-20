@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.1](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.5.0...1.5.1) (2023-05-20)
+
+
+### Bug Fixes
+
+* crash because of wrong formating of json ([70c0860](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/70c08601b5ef26489a4d5bd534e37db61f1dcda6))
+
 ## [1.5.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.4.1...1.5.0) (2023-05-19)
 
 
