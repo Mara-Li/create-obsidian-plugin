@@ -111,6 +111,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 	
 	const allTemplates: { name: string; subPath?: string }[] = [
 		{ name: "commit-and-tag-version.js"},
+		{ name: ".npmrc"},
 		{ name: "manifest.json" },
 		{ name: ".hotreload"},
 		{ name: ".eslintignore"},
