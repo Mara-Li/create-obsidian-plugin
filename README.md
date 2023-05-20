@@ -16,6 +16,11 @@ or
 yarn create @lisandra-dev/obsidian-plugin
 ```
 
+or 
+```
+pnpm create @lisandra-dev/obsidian-plugin
+```
+
 and a plugin will be created in your current directory. It'll prompt you for needed info (like plugin-id, name, etc).
 
 You can optionally pass a plugin-id to the command like
@@ -60,7 +65,7 @@ The fork separates the settings, interfaces and the main.ts. It also adds :
 - A better dev workflow using `.env` file and `dev.js` file. 
 
 Moreover, the creating adds: 
-- Funding information in the manifest (cf [funding](https://github.com/obsidianmd/obsidian-sample-plugin#funding-url)
+- Funding information in the manifest (cf [funding](https://github.com/obsidianmd/obsidian-sample-plugin#funding-url))
 - Desktop only question 
 - Initialize a git repository 
 - If you have [GitHub CLI](https://cli.github.com/) installed, you can also choose to create a new repository on GitHub. Obviously, you need to init a git repository before. The created repository will be public by default and use the same name as the plugin id.

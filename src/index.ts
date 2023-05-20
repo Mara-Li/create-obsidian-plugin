@@ -10,7 +10,7 @@ import {
 	run,
 	runCommandText,
 	installCommandText,
-	publish,
+	pkgManager,
 } from "./utils/platform";
 import dedent from "dedent";
 import { green, cyan, yellow, blue, bold } from "ansi-colors";
@@ -149,7 +149,6 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 						dev: runCommandText("dev"),
 						export: runCommandText("export"),
 						install: installCommandText,
-						publish: publish,
 					},
 					github: {
 						user: githubUser,
@@ -162,12 +161,11 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			let bump = "";
 			let upgrade = "";
 			if (plugin.vault_path.trim().length > 0) {
-				exportCmd = "\"preexport\" : \"npm run build\",\n\t\t\"export\" : \"node export.js\"";
-				// eslint-disable-next-line quotes
-				upgrade = `"preupgrade" : "nmp run bump",\n\t\t"upgrade" : "npm run export"`;
+				exportCmd = `"preexport" : "${pkgManager} run build",\n\t\t"export" : "node export.js",`;
+				upgrade = `"preupgrade" : "${pkgManager} run bump",\n\t\t"upgrade" : "${pkgManager} run export"`;
 			}
 			if (plugin.initRepo && plugin.createGitHubRepo) {
-				bump = `"postbump" : "git push --follow-tags origin ${getDefaultBranch()}"`;
+				bump = `"postbump" : "git push --follow-tags origin ${getDefaultBranch()},"`;
 			}
 			await writeTemplate("package.json", {
 				templateData: {

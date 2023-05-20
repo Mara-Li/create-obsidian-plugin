@@ -31,12 +31,12 @@
     "preinstall": "npx only-allow pnpm",
     "prebuild": "shx rm -rf lib",
     "build": "tsc && shx cp -R src/templates lib/templates",
-    "prestart": "npm run build",
-    "start": "./bin/run",
-    "prebump": "npm run build",
+    "prestart": "pnpm run build",
+    "start": "node -r path ./bin/run",
+    "prebump": "pnpm run build",
     "bump": "commit-and-tag-version",
-    "prerelease": "npm run bump",
-    "release": "npm publish",
+    "prerelease": "pnpm run bump",
+    "release": "pnpm publish",
     "postrelease": "git push --follow-tags origin master"
   },
   "commit-and-tag-version": {
