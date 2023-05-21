@@ -1,5 +1,7 @@
 import os from "os";
 import execa from "execa";
+import { PluginInfo } from "../plugin";
+import { getDefaultBranch } from "./github";
 
 
 export type Platform = typeof platforms[number];
@@ -32,3 +34,33 @@ export const run = (args: string | string[], cwd = process.cwd()) => {
 };
 
 export const cmd = os.platform() === "darwin" ? "⌘" : "ctrl";
+
+export function getCommandByPackageManager(plugin: PluginInfo) {
+	const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
+	let exportCmd = "";
+	let bump = "";
+	let upgrade = "";
+	if (plugin.vault_path.trim().length > 0) {
+		if (pkgManager !== "yarn") {
+			exportCmd = `"preexport" : "${pkgManager} run build",\n\t\t"export" : "node export.js",`;
+			upgrade = `"preupgrade" : "${pkgManager} run bump",\n\t\t"upgrade" : "${pkgManager} run export"`;
+		} else {
+			exportCmd = `"export" : "${pkgManager} build && node export.js",`;
+			upgrade = `"upgrade" : "${pkgManager} bump && node export.js"`;
+		}
+	}
+	if (plugin.initRepo && plugin.createGitHubRepo) {
+		if (pkgManager !== "yarn") {
+			bump = `"postbump" : "git push --follow-tags origin ${getDefaultBranch()},"`;
+		} else {
+			bump = `"push" : "yarn bump && git push --follow-tags origin ${getDefaultBranch()},"`;
+		}
+	}
+	return {
+		build:  `obsidian-plugin build src/main.ts${addStyle}`,
+		dev: "node dev.js",
+		export: exportCmd,
+		bump: bump,
+		upgrade: upgrade,
+	};
+}

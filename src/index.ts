@@ -3,19 +3,18 @@ import { renderFile } from "ejs";
 import path from "path";
 import { write, mkdir } from "./utils/fs";
 import { format } from "prettier";
-import simpleGit, {BranchSummary} from "simple-git";
-
-
 import {
 	run,
 	runCommandText,
 	installCommandText,
 	pkgManager,
+	getCommandByPackageManager,
 } from "./utils/platform";
 import dedent from "dedent";
 import { green, cyan, yellow, blue, bold } from "ansi-colors";
 import fs from "fs";
-import { execSync, spawnSync } from "child_process";
+import { execSync } from "child_process";
+import { getDefaultBranch, getUserGithub } from "./utils/github";
 
 const newline = () => console.log();
 
@@ -27,52 +26,8 @@ interface WriteTemplateOptions {
 	templateData?: Record<string, unknown>;
 }
 
-function getDefaultBranch() {
-	const git = simpleGit();
-	git.branchLocal((err: any, branch: BranchSummary) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		return branch.current;
-	});
-	return "";
-}
 
-function getUserGithub(): string {
-	const defaultUserName = process.env.npm_config_init_author_name || "";
-	try {
-		const output = spawnSync("gh", ["auth", "status"], { encoding: "utf-8" });
-		const stderr = output.stderr;
-		//create a list of lines
-		const lines = stderr.split(/\r?\n/);
-		//get the line with the username
-		const line = lines.find(line => line.includes("✓ Logged in to github.com as"));
-		//get the username
-		const username = line?.split("✓ Logged in to github.com as")[1].trim();
-		if (username) {
-			return username.split(" ")[0];
-		}
-	} catch (error) {
-		return defaultUserName;
-	}
-	return defaultUserName;
-}
 
-export function isGitHubCLIAvailable(): boolean {
-	try {
-		const output = execSync("gh --version", { encoding: "utf-8" });
-		const regex = /gh version ([0-9]+)/;
-
-		const match = output.match(regex);
-		if (match && match[1]) {
-			return true;
-		}
-	} catch (error) {
-		return false;
-	}
-	return false;
-}
 
 const makeWriteTemplate = (plugin: PluginInfo) => async (
 	name: string,
@@ -156,25 +111,15 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 				},
 			});
 		} else if (template.name === "package.json") {
-			const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
-			let exportCmd = "";
-			let bump = "";
-			let upgrade = "";
-			if (plugin.vault_path.trim().length > 0) {
-				exportCmd = `"preexport" : "${pkgManager} run build",\n\t\t"export" : "node export.js",`;
-				upgrade = `"preupgrade" : "${pkgManager} run bump",\n\t\t"upgrade" : "${pkgManager} run export"`;
-			}
-			if (plugin.initRepo && plugin.createGitHubRepo) {
-				bump = `"postbump" : "git push --follow-tags origin ${getDefaultBranch()},"`;
-			}
+			const cmd = getCommandByPackageManager(plugin);
 			await writeTemplate("package.json", {
 				templateData: {
 					scripts: {
-						build:  `obsidian-plugin build src/main.ts${addStyle}`,
-						dev: "node dev.js",
-						export: exportCmd,
-						bump: bump,
-						upgrade: upgrade,
+						build: cmd.build,
+						dev: cmd.dev,
+						export: cmd.export,
+						bump: cmd.bump,
+						upgrade: cmd.upgrade,
 					}
 				},
 			});
@@ -182,7 +127,6 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 			await writeTemplate(template.name, { subPath: template.subPath });
 		}
 	}
-
 
 	await write(
 		pluginPath(plugin, "LICENSE"),
