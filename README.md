@@ -4,24 +4,18 @@ A tool to easily create plugins for [obsidian](https://obsidian.md/)
 
 ## Getting started
 
-Run
+Run one of the following command, depending of your favorite package manager: 
 
-```
-npm init @lisandra-dev/obsidian-plugin
-```
+- `npm init @lisandra-dev/obsidian-plugin` or `npx @lisandra-dev/create-obsidian-plugin`
+- `yarn create @lisandra-dev/obsidian-plugin`
+- `pnpm create @lisandra-dev/obsidian-plugin`
 
-or
+> **Info**  
+> In Yaml V2+, you can't use automatically the `post` and `pre` scripts and must be manually used, as `npm run bump && npm run postbump`. See [here](https://yarnpkg.com/advanced/lifecycle-scripts) for more information.
+> As the package detect your package manager, the package.json will use another scripts for Yarn.
 
-```
-yarn create @lisandra-dev/obsidian-plugin
-```
 
-or 
-```
-pnpm create @lisandra-dev/obsidian-plugin
-```
-
-and a plugin will be created in your current directory. It'll prompt you for needed info (like plugin-id, name, etc).
+And a plugin will be created in your current directory. It'll prompt you for needed info (like plugin-id, name, etc).
 
 You can optionally pass a plugin-id to the command like
 
@@ -31,29 +25,23 @@ yarn create obsidian-plugin my-plugin
 
 In this case a plugin with the id `my-plugin` will be created in the current directory. Afterwards, follow the directions from the plugin to get started
 
-### Building the plugin for development
 
-```
-npm run dev
-```
+## Scripts 
 
-or
+Prepend the following command with your package manager (npm, yarn, pnpm, etc…).
 
-```
-yarn dev
-```
+1. **Build** : `build` 
+2. **Build and watch** : `dev`
+3. **Export to your vault** : `export` - You must set the path to your vault in the `.env` file.
+	The plugin will be build and exported to your vault.
+4. **Bump version with pushing to repository**
+	- In `npm` or `pnpm` : `bump`
+	- In `yarn` : `push`
+5. **Bump version (w/o push)**
+	- In `npm` or `pnpm` : `bump --ignore-scripts`
+	- In `yarn` : `bump`
+6. **Upgrade** - Update the version number, and export to your main repository : `upgrade`
 
-### Building the plugin for publish
-
-```
-npm run build
-```
-
-or
-
-```
-yarn build
-```
 
 ## Fork difference
 
