@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.5.1...1.6.0) (2023-05-21)
+
+
+### Features
+
+* support yarn no-pre/post scripts ([a926b0f](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/a926b0f78af872430445ed5a8849ee59478f2381))
+
+
+### Bug Fixes
+
+* switch to es2021 to support replaceAll ([77e286a](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/77e286ac48424447b5abd8e280c4cd730dc1a35d))
+
 ## [1.5.1](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.5.0...1.5.1) (2023-05-20)
 
 
