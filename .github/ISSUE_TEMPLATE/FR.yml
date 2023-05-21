@@ -1,14 +1,14 @@
-name: "[Create Obsidian Plugin] Bug report"
-description: Fill a bug report for the package
-title: "[BUG]:"
-labels: ["bug"]
+name: "[OBSIDIAN CREATE PLUGIN] Feature request"
+description: Suggest an idea for this project
+title: "[FR]:"
+labels: ["enhancement"]
 assignees: 
   - lisandra-dev
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report.
+        Thanks for taking the time to fill out this feature request.
   - type: checkboxes
     attributes:
       label: Issue validation
@@ -16,43 +16,25 @@ body:
       options:
         - label: "I checked the issue to prevent duplicate"
           required: true
-        - label: "I checked my configurations files and the documentation"
-          required: true
-  - type: input
-    id: package-version
-    attributes:
-        label: Plugin version
-        description: Please copy and paste the version of the package you are using.
-        placeholder: "1.0.0"
-    validations:
-        required: true          
   - type: textarea
-    id: describe-bug
+    id: describe-request
     attributes:
-      label: Describe the bug
-      description: A clear and concise description of what the bug is.
-      placeholder: "Tell us what you see! And don't forget the error"
+      label: Is your feature related to a problem ?
+      description: If you found a solution with the inherent limit I had with Obsidian, please, add it here! 
+      placeholder: "Tell me the original problem"
+  - type: textarea
+    id: describe-solution
+    attributes:
+      label: What solution do you want to see ?
+      description: Describe your idea here!
     validations:
       required: true
   - type: textarea
-    id: repro-bug
+    id: alternative
     attributes:
-      label: How to reproduce ?
-      description: Step to reproduce the behavior
-      placeholder: |
-        1. Go to '...'
-        2. Click on '....'
-        3. Scroll down to '....'
-        4. See error
+      label: Describe the alternative you've considered
     validations:
-      required: false
-  - type: textarea
-    id: logs
-    attributes:
-      label: Relevant log output
-      description: |
-        Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. You can open the Obsidian's console with "CTRL+MAJ+I."
-      render: bash session
+      required: true
   - type: textarea
     attributes:
       label: Anything else?
