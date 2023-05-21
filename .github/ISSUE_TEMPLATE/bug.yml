@@ -1,4 +1,4 @@
-name: "[Create Obsidian Plugin] Bug report"
+name: "Bug report"
 description: Fill a bug report for the package
 title: "[BUG]:"
 labels: ["bug"]
