@@ -7,14 +7,13 @@ import {
 	run,
 	runCommandText,
 	installCommandText,
-	pkgManager,
 	getCommandByPackageManager,
 } from "./utils/platform";
 import dedent from "dedent";
 import { green, cyan, yellow, blue, bold } from "ansi-colors";
 import fs from "fs";
 import { execSync } from "child_process";
-import { getDefaultBranch, getUserGithub } from "./utils/github";
+import { getUserGithub } from "./utils/github";
 
 const newline = () => console.log();
 

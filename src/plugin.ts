@@ -4,7 +4,7 @@ import { yellow, green, dim, reset } from "ansi-colors";
 import dedent from "dedent";
 import { cmd } from "./utils/platform";
 import licenses from "spdx-license-list";
-import {isGitHubCLIAvailable} from "./index";
+import {isGitHubCLIAvailable} from "./utils/github";
 
 const capitalize = (word: string) => word[0].toUpperCase() + word.slice(1);
 const empty = (v: any) => Boolean(v);
