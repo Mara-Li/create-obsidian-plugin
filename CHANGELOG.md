@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.3](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.6.2...1.6.3) (2023-06-01)
+
+
+### Bug Fixes
+
+* dependencies not found ([9b76e1e](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/9b76e1edbbd3d0f31d09f42a811036d64d84adc4))
+
 ## [1.6.2](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.6.1...1.6.2) (2023-06-01)
 
 
