@@ -39,14 +39,14 @@ export function getCommandByPackageManager(plugin: PluginInfo) {
 	const addStyle = plugin.hasStylesheet ? " --with-stylesheet src/styles.css" : "";
 	let exportCmd = "";
 	let bump = "";
-	let upgrade = "";
+	let deploy = "";
 	if (plugin.vault_path.trim().length > 0) {
 		if (pkgManager !== "yarn") {
 			exportCmd = `"preexport" : "${pkgManager} run build",\n\t\t"export" : "node export.js",`;
-			upgrade = `"preupgrade" : "${pkgManager} run bump",\n\t\t"upgrade" : "${pkgManager} run export"`;
+			deploy = `"predeploy" : "${pkgManager} run bump",\n\t\t"deploy" : "${pkgManager} run export"`;
 		} else {
 			exportCmd = `"export" : "${pkgManager} build && node export.js",`;
-			upgrade = `"upgrade" : "${pkgManager} bump && node export.js"`;
+			deploy = `"deploy" : "${pkgManager} bump && node export.js"`;
 		}
 	}
 	if (plugin.initRepo && plugin.createGitHubRepo) {
@@ -61,6 +61,6 @@ export function getCommandByPackageManager(plugin: PluginInfo) {
 		dev: "node dev.js",
 		export: exportCmd,
 		bump: bump,
-		upgrade: upgrade,
+		deploy: deploy,
 	};
 }

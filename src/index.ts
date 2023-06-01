@@ -118,7 +118,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 						dev: cmd.dev,
 						export: cmd.export,
 						bump: cmd.bump,
-						upgrade: cmd.upgrade,
+						deploy: cmd.deploy,
 					}
 				},
 			});

@@ -12,7 +12,7 @@
 	"bump": "node commit-and-tag-version.js",
 	<%- scripts.bump %>
 	<%- scripts.export %>
-	<%- scripts.upgrade %>
+	<%- scripts.deploy %>
   },
   "commit-and-tag-version": {
 	"t": ""
@@ -21,6 +21,8 @@
 	"@typescript-eslint/eslint-plugin": "^5.59.7",
 	"@typescript-eslint/parser": "^5.59.7",
 	"builtin-modules": "^3.3.0",
+	"commander": "^10.0.1",
+	"dedent": "^0.7.0",
 	"eslint": "^8.41.0",
 	"eslint-config-standard": "^17.0.0",
 	"eslint-plugin-import": "^2.27.5",
