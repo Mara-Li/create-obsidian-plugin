@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.0](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.6.4...1.7.0) (2023-06-02)
+
+
+### Features
+
+* use reusable workflow ([ddfbb99](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/ddfbb99e5eb17e9b2d6f8b997ad739b0be341dbe))
+
+
+### Bug Fixes
+
+* add dep & correct unused variable ([ce52c0e](https://github.com/Lisandra-dev/create-obsidian-plugin/commit/ce52c0e8cfbb6ee087fd5105ae5ac3d23188d5d4))
+
 ## [1.6.4](https://github.com/Lisandra-dev/create-obsidian-plugin/compare/1.6.3...1.6.4) (2023-06-01)
 
 
