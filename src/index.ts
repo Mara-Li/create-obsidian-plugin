@@ -13,7 +13,7 @@ import dedent from "dedent";
 import { green, cyan, yellow, blue, bold } from "ansi-colors";
 import fs from "fs";
 import { execSync } from "child_process";
-import { getUserGithub } from "./utils/github";
+import { getDefaultBranch, getUserGithub } from "./utils/github";
 
 const newline = () => console.log();
 
@@ -78,8 +78,6 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		{ name: ".env"},
 		{ name: "export.js"},
 		{ name: "dev.js"},
-		{ name: "publish.yaml", subPath: ".github/workflows" },
-		{ name: "bump.yaml", subPath: ".github/workflows" },
 		{ name: "main.ts", subPath: "src" },
 		{ name: "settings.ts", subPath: "src" },
 		{ name: "interface.ts", subPath: "src" },
@@ -122,6 +120,23 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 					}
 				},
 			});
+		} else if (template.name === "release.yaml") {
+			const githubBranch = plugin.initRepo && plugin.createGitHubRepo ? getDefaultBranch() ?? "master" : "master";
+			if (githubBranch !== "master") {
+				await writeTemplate("release.yaml", {
+					templateData: {
+						github: {
+							branch: `BRANCH: ${githubBranch}`,
+						}
+					},
+					subPath: ".github/workflows",
+				});
+			}
+			else {
+				await writeTemplate("release.yaml", {
+					subPath: ".github/workflows",
+				});
+			}
 		} else {
 			await writeTemplate(template.name, { subPath: template.subPath });
 		}

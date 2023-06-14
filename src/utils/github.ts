@@ -1,16 +1,16 @@
 import { execSync, spawnSync } from "child_process";
 import simpleGit, {BranchSummary} from "simple-git";
 
-export function getDefaultBranch() {
+export function getDefaultBranch(): string|null {
 	const git = simpleGit();
 	git.branchLocal((err: any, branch: BranchSummary) => {
 		if (err) {
 			console.log(err);
-			return;
+			return null;
 		}
 		return branch.current;
 	});
-	return "";
+	return null;
 }
 
 export function getUserGithub(): string {
