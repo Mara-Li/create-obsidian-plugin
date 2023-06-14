@@ -1,6 +1,6 @@
 {
   "name": "@lisandra-dev/create-obsidian-plugin",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "An unofficial tool for easily creating an obsidian plugin, with i18n support, workflows...",
   "keywords": [
     "create",
