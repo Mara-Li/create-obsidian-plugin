@@ -40,7 +40,10 @@ export interface PluginInfo {
   hasStylesheet: boolean;
   license: string;
   initRepo: boolean;
+  workflow: boolean;
+  i18n: boolean;
   createGitHubRepo: boolean | undefined | null;
+  
 }
 
 export async function prompt(): Promise<PluginInfo> {
@@ -129,6 +132,16 @@ export async function prompt(): Promise<PluginInfo> {
 				message: "Create a GitHub repository? (requires GitHub CLI)",
 			},
 			{
+				type: "confirm",
+				name: "i18n",
+				message: "Do you want to load i18n?",
+			},
+			{
+				type: "confirm",
+				name: "workflow",
+				message: "Do you want to load .github/workflow?",
+			},
+			{
 				type: "autocomplete",
 				name: "license",
 				message: `Choose a license ${reset(
@@ -152,6 +165,6 @@ export async function prompt(): Promise<PluginInfo> {
 	);
 	return {
 		...answers,
-		className: answers.name.split(" ").filter(empty).map(capitalize).join(""),
+		className: answers.name.split(" ").filter(empty).map(capitalize).join("").replaceAll(/\W+/g, ""),
 	};
 }

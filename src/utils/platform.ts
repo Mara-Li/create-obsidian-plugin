@@ -20,7 +20,6 @@ export const detectPlatform = (): Platform => {
 const platform = detectPlatform();
 
 export const pkgManager = platform.startsWith("yarn") ? "yarn" : platform;
-console.log("pkgManager", pkgManager);
 export const runCommandText = (cmd?: string) =>
 	pkgManager === "yarn" ? `yarn ${cmd}` : `${pkgManager} run ${cmd}`;
 

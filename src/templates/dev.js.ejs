@@ -40,7 +40,8 @@ if (vaultDev.trim().length > 0) {
 		console.log();
 	}
 }
+const styleSheet = <% if (plugin.hasStylesheet) { %>`--with-stylesheet src/styles.css`<% } else { %>""<% } %>;
 
-const command = `obsidian-plugin dev --with-stylesheet src/styles.css src/main.ts ${cmd}`;
-console.log(c.info.italic(`${c.bold(">")} obsidian-plugin dev ${c.dark.underline("--with-stylesheet src/styles.css")} src/main.ts ${msg}`));
+const command = `obsidian-plugin dev ${styleSheet} src/main.ts ${cmd}`;
+console.log(c.info.italic(`${c.bold(">")} obsidian-plugin dev ${c.dark.underline(styleSheet)} src/main.ts ${msg}`));
 execSync(command, { stdio: "inherit" });

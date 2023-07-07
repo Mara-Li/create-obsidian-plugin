@@ -2,8 +2,7 @@ import {Plugin} from "obsidian";
 import {<%= plugin.className %>SettingsTab} from "./settings";
 import {<%= plugin.className %>Settings, DEFAULT_SETTINGS} from "./interface";
 import {<%= plugin.className %>Modals} from "./modals";
-import i18next from "i18next";
-import { resources, translationLanguage } from "./i18n/i18next";
+<%- translation.import %>
 
 
 export default class <%= plugin.className %> extends Plugin {
@@ -11,12 +10,8 @@ export default class <%= plugin.className %> extends Plugin {
 
   async onload() {
     console.log(`<%= plugin.className %> v.${this.manifest.version} (lang: ${translationLanguage}) loaded.`);
-    i18next.init({
-			lng: translationLanguage,
-			fallbackLng: "en",
-			resources: resources,
-			returnNull: false,
-		});
+    <%- translation.init %>
+
     await this.loadSettings();
     this.addSettingTab(new <%= plugin.className %>SettingsTab(this.app, this));
 

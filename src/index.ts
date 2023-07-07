@@ -25,9 +25,6 @@ interface WriteTemplateOptions {
 	templateData?: Record<string, unknown>;
 }
 
-
-
-
 const makeWriteTemplate = (plugin: PluginInfo) => async (
 	name: string,
 	{ subPath = "", templateData = {} }: WriteTemplateOptions = {}
@@ -82,14 +79,33 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 		{ name: "settings.ts", subPath: "src" },
 		{ name: "interface.ts", subPath: "src" },
 		{ name: "modals.ts", subPath: "src" },
-		{ name: "i18next.d.ts", subPath: "src/@types" },
-		{ name: "i18next.ts", subPath: "src/i18n" },
-		{ name: "en.json", subPath: "src/i18n/locales" },
-		{ name: "fr.json", subPath: "src/i18n/locales" },
 	];
 	
 	if (plugin.hasStylesheet) {
 		allTemplates.push({ name: "styles.css", subPath: "src" });
+	}
+	if (plugin.workflow) {
+		allTemplates.push({ name: "release.yaml", subPath: ".github/workflows" });
+	}
+	let i18Init = "";
+	let i18nImport = "";
+	if (plugin.i18n) {
+		allTemplates.push(
+			{ name: "i18next.d.ts", subPath: "src/@types" },
+			{ name: "en.json", subPath: "src/i18n/locales" },
+			{ name: "fr.json", subPath: "src/i18n/locales" },
+			{ name: "i18next.ts", subPath: "src/i18n" });
+		i18Init = dedent(`
+			i18next.init({
+				lng: translationLanguage,
+				fallbackLng: "en",
+				resources: resources,
+				returnNull: false,
+			});`).replaceAll("\t\t\t", "");
+		i18nImport = dedent(`
+			import i18next from "i18next";
+			import { resources, translationLanguage } from "./i18n/i18next";
+		`);
 	}
 
 	for (const template of allTemplates) {
@@ -117,6 +133,7 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 						export: cmd.export,
 						bump: cmd.bump,
 						deploy: cmd.deploy,
+						i18n: plugin.i18n ? "\"i18next\": \"^22.4.10\"" : "",
 					}
 				},
 			});
@@ -129,14 +146,29 @@ const makeWriteTemplate = (plugin: PluginInfo) => async (
 							branch: `BRANCH: ${githubBranch}`,
 						}
 					},
-					subPath: ".github/workflows",
+					subPath: template.subPath,
 				});
 			}
 			else {
 				await writeTemplate("release.yaml", {
-					subPath: ".github/workflows",
+					templateData: {
+						github: {
+							branch: "",
+						}
+					},
+					subPath: template.subPath,
 				});
 			}
+		} else if (template.name === "main.ts") {
+			await writeTemplate("main.ts", {
+				templateData: {
+					translation: {
+						init: i18Init,
+						import: i18nImport,
+					},
+				},
+				subPath: template.subPath,
+			});
 		} else {
 			await writeTemplate(template.name, { subPath: template.subPath });
 		}
