@@ -25,7 +25,7 @@ jobs:
     with:
       PLUGIN_NAME: <%= plugin.id %>
       STYLE: <%= plugin.hasStylesheet %>
-      BETA: ${{ inputs.beta }}
+      BETA: ${{ inputs.beta || false}}
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   bump-version-and-release:
