@@ -3,6 +3,8 @@ const fs = require("fs");
 const path = require("path");
 const c = require("ansi-colors");
 const { execSync } = require("child_process");
+const manifest = require("./manifest.json");
+
 c.theme({
 	danger: c.red,
 	dark: c.dim.gray,
@@ -27,7 +29,7 @@ let msg = vaultDev.trim().length > 0 ? `-v ${c.underline.bold.blue(vaultDev)}` :
 const cmd = vaultDev.trim().length > 0 ? `-v ${vaultDev}` : "";
 
 if (vaultDev.trim().length > 0) {
-	const pluginDir = path.join(vaultDev, ".obsidian", "plugins", "<%= plugin.id %>", ".hotreload");
+	const pluginDir = path.join(vaultDev, ".obsidian", "plugins", manifest.id, ".hotreload");
 	if (!fs.existsSync(pluginDir)) {
 		console.log(`${c.danger.bold("❌")} ${c.danger(".hotreload file not found. Creating it...")}`);
 		fs.writeFile(pluginDir, "", (err) => {

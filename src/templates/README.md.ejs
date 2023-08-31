@@ -10,10 +10,10 @@
 - [ ] From Obsidian's community plugins
 - [x] Using BRAT with `https://github.com/<%= github.user %>/<%= plugin.id %>`
 - [x] From the release page: 
-  - Download the latest release
-  - Unzip `<%= plugin.id %>.zip` in `.obsidian/plugins/` path
-  - In Obsidian settings, reload the plugin
-  - Enable the plugin
+    - Download the latest release
+    - Unzip `<%= plugin.id %>.zip` in `.obsidian/plugins/` path
+    - In Obsidian settings, reload the plugin
+    - Enable the plugin
 
 ## 🤖 Developing 
 
@@ -45,7 +45,7 @@ To start a release build run the following command:
 
 You can use the `<%= platform.export %>` command to export your plugin to your Obsidian Main Vault. To do that, you need the `.env` file with the following content:
 
-```json
+```env
 VAULT="path/to/your/obsidian/vault"
 VAULT_DEV="path/to/your/dev/vault"
 ```
@@ -54,6 +54,7 @@ VAULT_DEV="path/to/your/dev/vault"
 
 - [x] English
 - [ ] French
+
 
 To add a translation:
 - Fork the repository
