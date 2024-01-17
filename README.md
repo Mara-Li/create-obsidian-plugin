@@ -10,8 +10,8 @@ Run one of the following command, depending of your favorite package manager:
 - `yarn create @lisandra-dev/obsidian-plugin`
 - `pnpm create @lisandra-dev/obsidian-plugin`
 
-> **Info**  
-> In Yaml V2+, you can't use automatically the `post` and `pre` scripts and must be manually used, as `npm run bump && npm run postbump`. See [here](https://yarnpkg.com/advanced/lifecycle-scripts) for more information.
+> [!WARNING]
+> In yarn V2+, you can't use automatically the `post` and `pre` scripts and must be manually used, as `npm run bump && npm run postbump`. See [here](https://yarnpkg.com/advanced/lifecycle-scripts) for more information.
 > As the package detect your package manager, the package.json will use another scripts for Yarn.
 
 
